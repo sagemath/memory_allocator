@@ -23,11 +23,20 @@ except ModuleNotFoundError:
     has_cysignals = False
 
 extensions = [
-    Extension("memory_allocator.memory_allocator", sources=["memory_allocator/memory_allocator.pyx"]),
-    Extension("memory_allocator.test", sources=["memory_allocator/test.pyx"]),
-    (Extension("memory_allocator.signals", sources=["memory_allocator/signals.pyx"])
+    Extension(
+        "memory_allocator.memory_allocator",
+        sources=["memory_allocator/memory_allocator.pyx"]),
+    Extension(
+        "memory_allocator.test",
+        sources=["memory_allocator/test.pyx"]),
+    (
+        Extension(
+            "memory_allocator.signals",
+            sources=["memory_allocator/signals.pyx"])
         if has_cysignals else
-        Extension("memory_allocator.signals", sources=["memory_allocator/signals_backup.pyx"])),
+        Extension(
+            "memory_allocator.signals",
+            sources=["memory_allocator/signals_backup.pyx"])),
     ]
 
 setup(
