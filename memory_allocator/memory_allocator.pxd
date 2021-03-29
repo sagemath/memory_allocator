@@ -53,17 +53,6 @@ cdef class MemoryAllocator:
             If you want to allocate multiple (small) aligned arrays with the
             same alignment and really want to be memory efficient, you can
             allocate one large aligned array instead.
-
-        TESTS::
-
-            sage: cython('''
-            ....: from sage.ext.memory_allocator cimport MemoryAllocator
-            ....: cdef MemoryAllocator mem = MemoryAllocator()
-            ....: cdef void* ptr
-            ....: for i in range(12):
-            ....:     ptr = mem.aligned_malloc(2**i, 4048)
-            ....:     assert <size_t> ptr == (<size_t> ptr) & ~(2**i-1)
-            ....: ''')
         """
         cdef size_t extra = alignment - 1
         return align(self.malloc(size + extra), alignment)
@@ -80,17 +69,6 @@ cdef class MemoryAllocator:
             If you want to allocate multiple (small) aligned arrays with the
             same alignment and really want to be memory efficient, you can
             allocate one large aligned array instead.
-
-        TESTS::
-
-            sage: cython('''
-            ....: from sage.ext.memory_allocator cimport MemoryAllocator
-            ....: cdef MemoryAllocator mem = MemoryAllocator()
-            ....: cdef void* ptr
-            ....: for i in range(12):
-            ....:     ptr = mem.aligned_calloc(2**i, i, 2**i)
-            ....:     assert <size_t> ptr == (<size_t> ptr) & ~(2**i-1)
-            ....: ''')
         """
         # Find extra such that (nmemb + extra) * size >= nmemb * size + alignment - 1
         # ⇔ extra * size >= alignment - 1
@@ -111,17 +89,6 @@ cdef class MemoryAllocator:
             If you want to allocate multiple (small) aligned arrays with the
             same alignment and really want to be memory efficient, you can
             allocate one large aligned array instead.
-
-        TESTS::
-
-            sage: cython('''
-            ....: from sage.ext.memory_allocator cimport MemoryAllocator
-            ....: cdef MemoryAllocator mem = MemoryAllocator()
-            ....: cdef void* ptr
-            ....: for i in range(12):
-            ....:     ptr = mem.aligned_allocarray(2**i, i, 2**i)
-            ....:     assert <size_t> ptr == (<size_t> ptr) & ~(2**i-1)
-            ....: ''')
         """
         # Find extra such that (nmemb + extra) * size >= nmemb * size + alignment - 1
         # ⇔ extra * size >= alignment - 1
