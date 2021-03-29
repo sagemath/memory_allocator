@@ -1,5 +1,6 @@
 import cydoctest
 
+
 # The actual tests.
 
 cydoctest.testmod(memory_allocator.test, verbose=True)
