@@ -1,4 +1,6 @@
 import cydoctest
+import memory_allocator.test
+import memory_allocator.memory_allocator
 
 
 # The actual tests.
