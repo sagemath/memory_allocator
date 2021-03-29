@@ -8,12 +8,45 @@ cdef class TestMemoryAllocator():
         self.mem = MemoryAllocator()
 
     def malloc(self, size):
+        """
+        TESTS::
+
+        >>> from memory_allocator.test import TestMemoryAllocator
+        >>> mem = TestMemoryAllocator()
+        >>> _ = mem.malloc(100)
+        >>> mem.malloc(2**63)
+        Traceback (most recent call last):
+        ...
+        MemoryError: failed to allocate 9223372036854775808 bytes
+        """
         return <size_t> self.mem.malloc(size)
 
     def calloc(self, nmemb, size):
+        """
+        TESTS::
+
+        >>> from memory_allocator.test import TestMemoryAllocator
+        >>> mem = TestMemoryAllocator()
+        >>> _ = mem.calloc(100, 10)
+        >>> mem.calloc(2**63, 1)
+        Traceback (most recent call last):
+        ...
+        MemoryError: failed to allocate 9223372036854775808 * 1 bytes
+        """
         return <size_t> self.mem.calloc(nmemb, size)
 
     def allocarray(self, nmemb, size):
+        """
+        TESTS::
+
+        >>> from memory_allocator.test import TestMemoryAllocator
+        >>> mem = TestMemoryAllocator()
+        >>> _ = mem.allocarray(100, 10)
+        >>> mem.allocarray(2**63, 1)
+        Traceback (most recent call last):
+        ...
+        MemoryError: failed to allocate 9223372036854775808 * 1 bytes
+        """
         return <size_t> self.mem.allocarray(nmemb, size)
 
     def realloc(self, size_t ptr, size):
@@ -43,6 +76,29 @@ cdef class TestMemoryAllocator():
         return <size_t> self.mem.realloc(<void*> ptr, size)
 
     def reallocarray(self, size_t ptr, nmemb, size):
+        """
+        TESTS::
+
+            >>> from memory_allocator.test import TestMemoryAllocator
+            >>> def test_reallocarray_good():
+            ...     mem = TestMemoryAllocator()
+            ...     ptr = mem.allocarray(20, 8)
+            ...     mem.reallocarray(ptr, 21, 8)
+            >>> def test_reallocarray_NULL():
+            ...     mem = TestMemoryAllocator()
+            ...     mem.reallocarray(0, 21, 8)
+            >>> def test_reallocarray_bad():
+            ...     mem = TestMemoryAllocator()
+            ...     mem2 = TestMemoryAllocator()
+            ...     ptr = mem.allocarray(20, 8)
+            ...     mem2.reallocarray(ptr, 21, 8)
+            >>> test_reallocarray_good()
+            >>> test_reallocarray_NULL()
+            >>> test_reallocarray_bad()
+            Traceback (most recent call last):
+            ...
+            ValueError: given pointer not found in MemoryAllocator
+        """
         return <size_t> self.mem.reallocarray(<void*> ptr, nmemb, size)
 
     def aligned_malloc(self, alignment, size):
