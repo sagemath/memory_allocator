@@ -15,13 +15,6 @@ class build_ext(du_build_ext):
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
-try:
-    from cysignals.tests import test_sig_check
-    _ = test_sig_check()
-    has_cysignals = True
-except ModuleNotFoundError:
-    has_cysignals = False
-
 extensions = [
     Extension(
         "memory_allocator.memory_allocator",
@@ -29,14 +22,6 @@ extensions = [
     Extension(
         "memory_allocator.test",
         sources=["memory_allocator/test.pyx"]),
-    (
-        Extension(
-            "memory_allocator.signals",
-            sources=["memory_allocator/signals.pyx"])
-        if has_cysignals else
-        Extension(
-            "memory_allocator.signals",
-            sources=["memory_allocator/signals_backup.pyx"])),
     ]
 
 setup(
