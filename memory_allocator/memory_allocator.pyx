@@ -8,35 +8,28 @@ cdef class MemoryAllocator:
 
     EXAMPLES::
 
-        sage: cython(
-        ....: '''
-        ....: from sage.ext.memory_allocator cimport MemoryAllocator
-        ....: cdef MemoryAllocator mem = MemoryAllocator()
-        ....: cdef void* ptr
-        ....: for n in range(100):
-        ....:     ptr = mem.malloc(n)
-        ....:     mem.realloc(ptr, 2*n)
-        ....:     mem.calloc(n, n)
-        ....:     ptr = mem.allocarray(n, n)
-        ....:     mem.reallocarray(ptr, n + 1, n)
-        ....:     mem.aligned_malloc(32, (n//32 + 1)*32)
-        ....:     mem.aligned_calloc(16, n, 16)
-        ....:     mem.aligned_allocarray(8, n, 8)
-        ....: ''')
+        >>> from memory_allocator.test import TestMemoryAllocator
+        >>> mem = TestMemoryAllocator()
+        >>> for n in range(100):
+        ...     ptr = mem.malloc(n)
+        ...     _ = mem.realloc(ptr, 2*n)
+        ...     _ = mem.calloc(n, n)
+        ...     ptr = mem.allocarray(n, n)
+        ...     _ = mem.reallocarray(ptr, n + 1, n)
+        ...     _ = mem.aligned_malloc(32, (n//32 + 1)*32)
+        ...     _ = mem.aligned_calloc(16, n, 16)
+        ...     _ = mem.aligned_allocarray(8, n, 8)
     """
     def __cinit__(self):
         """
         EXAMPLES::
 
-            sage: cython(
-            ....: '''
-            ....: from sage.ext.memory_allocator cimport MemoryAllocator
-            ....: cdef MemoryAllocator mem = MemoryAllocator.__new__(MemoryAllocator)
-            ....: mem.malloc(10000)
-            ....: print(mem.n)
-            ....: print(mem.size)
-            ....: ''')
+            >>> from memory_allocator.test import TestMemoryAllocator
+            >>> _ = TestMemoryAllocator()
+            >>> _ = malloc(10000)
+            >>> mem.n()
             1
+            >>> mem.size()
             16
         """
         self.n = 0
@@ -113,30 +106,6 @@ cdef class MemoryAllocator:
     cdef void* realloc(self, void* ptr, size_t size) except? NULL:
         r"""
         Re-allocates `ptr` and automatically frees it later.
-
-        TESTS::
-
-            sage: cython('''
-            ....: from sage.ext.memory_allocator cimport MemoryAllocator
-            ....: def test_realloc_good():
-            ....:     cdef MemoryAllocator mem = MemoryAllocator()
-            ....:     ptr = mem.malloc(20)
-            ....:     mem.realloc(ptr, 21)
-            ....: def test_realloc_NULL():
-            ....:     cdef MemoryAllocator mem = MemoryAllocator()
-            ....:     mem.realloc(NULL, 21)
-            ....: def test_realloc_bad():
-            ....:     cdef MemoryAllocator mem = MemoryAllocator()
-            ....:     cdef MemoryAllocator mem2 = MemoryAllocator()
-            ....:     ptr = mem.malloc(20)
-            ....:     mem2.realloc(ptr, 21)
-            ....: ''')
-            sage: test_realloc_good()
-            sage: test_realloc_NULL()
-            sage: test_realloc_bad()
-            Traceback (most recent call last):
-            ...
-            ValueError: given pointer not found in MemoryAllocator
         """
         cdef void** addr = self.find_pointer(ptr)
         cdef void* val = check_realloc(ptr, size)
@@ -159,8 +128,8 @@ cdef class MemoryAllocator:
 
         EXAMPLES::
 
-            sage: from sage.ext.memory_allocator import MemoryAllocator
-            sage: _ = MemoryAllocator()
+            >>> from memory_allocator.test import TestMemoryAllocator
+            >>> _ = TestMemoryAllocator()
         """
         cdef size_t i
         for i in range(self.n):
