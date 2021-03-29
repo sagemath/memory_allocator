@@ -1,6 +1,7 @@
 #!python
 """
-Taken from https://github.com/cython/cython/wiki/FAQ#how-can-i-run-doctests-in-cython-code-pyx-files
+Taken from
+https://github.com/cython/cython/wiki/FAQ#how-can-i-run-doctests-in-cython-code-pyx-files
 
 Cython-compatible wrapper for doctest.testmod().
 
@@ -47,7 +48,9 @@ def fix_module_doctest(module):
     module.__test__ = {}
     for name in dir(module):
         value = getattr(module, name)
-        if inspect.isbuiltin(value) and isinstance(value.__doc__, str) and _from_module(module, value):
+        if (inspect.isbuiltin(value)
+                and isinstance(value.__doc__, str)
+                and _from_module(module, value)):
             module.__test__[name] = value.__doc__
 
 
