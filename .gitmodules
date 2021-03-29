@@ -1,0 +1,3 @@
+[submodule "cysignals"]
+	path = cysignals
+	url = git@github.com:sagemath/cysignals.git

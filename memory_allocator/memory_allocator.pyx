@@ -1,4 +1,4 @@
-from cysignals.memory cimport *
+from .memory cimport *
 
 
 cdef class MemoryAllocator:

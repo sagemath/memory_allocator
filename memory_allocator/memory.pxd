@@ -1,0 +1,1 @@
+../cysignals/src/cysignals/memory.pxd
