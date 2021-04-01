@@ -1,4 +1,3 @@
-include cysignals/src/cysignals/memory.pxd
 include AUTHORS
 include setup.py cydoctest.py test.py
 graft memory_allocator
