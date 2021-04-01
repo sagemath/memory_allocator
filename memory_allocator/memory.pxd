@@ -1,3 +1,5 @@
+# Copied from https://github.com/sagemath/cysignals/blob/master/src/cysignals/memory.pxd.
+# Note that this is no longer interruption safe, as we efficiently remove ``sig_block``/``sig_unblock``.
 """
 Memory allocation functions which are interrupt-safe
 
