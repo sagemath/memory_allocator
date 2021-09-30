@@ -42,7 +42,7 @@ cdef class TestMemoryAllocator():
         >>> from memory_allocator.test import TestMemoryAllocator
         >>> mem = TestMemoryAllocator()
         >>> _ = mem.allocarray(100, 10)
-        >>> mem.allocarray(size_t_max(), 1)
+        >>> mem.allocarray(mem.size_t_max(), 1)
         Traceback (most recent call last):
         ...
         MemoryError: failed to allocate ... * 1 bytes
