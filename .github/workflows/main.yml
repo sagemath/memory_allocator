@@ -42,7 +42,6 @@ jobs:
               pip freeze
         - name: Local build
           run: |
-            set -e
             python setup.py build_ext -i
-            python test.py
+            python test.py || exit 1
             git clean -xfd
