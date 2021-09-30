@@ -18,8 +18,10 @@ jobs:
                 python-version: [3.6, 3.7, 3.8, 3.9, 3.10.0-rc.2]
                 architecture: [x64, x86]
                 exclude:
-                    - os: [ubuntu-latest, macos-lates]
-                      architecture: [x86]
+                    - os: ubuntu-latest
+                      architecture: x86
+                    - os: macos-latest
+                      architecture: x86
         steps:
         - name: Set up the repository
           uses: actions/checkout@v2
