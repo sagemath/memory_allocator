@@ -23,7 +23,7 @@ jobs:
           env:
               CFLAGS: '-m32'
           run: |
-          sudo apt-get install python${{ matrix.python-version }}:i386
+            sudo apt-get install python${{ matrix.python-version }}:i386
         - name: Set up the repository
           uses: actions/checkout@v2
           with:
