@@ -26,7 +26,7 @@ extensions = [
 
 setup(
     name='memory_allocator',
-    version='0.1.0',
+    version='0.1.1',
     description='An extension class to allocate memory easily with cython',
     long_description=long_description,
     long_description_content_type='text/markdown',

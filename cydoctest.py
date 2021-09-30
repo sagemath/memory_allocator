@@ -60,6 +60,6 @@ def testmod(m=None, *args, **kwargs):
     All other arguments are passed directly to doctest.testmod().
     """
     fix_module_doctest(m)
-    result = doctest.testmod(m, *args, **kwargs)
+    result = doctest.testmod(m, optionflags=doctest.ELLIPSIS, *args, **kwargs)
     if result.failed > 0:
         sys.exit('%d test(s) failed' % result.failed)
