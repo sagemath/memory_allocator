@@ -15,7 +15,7 @@ jobs:
             fail-fast: false
             matrix:
                 os: [ubuntu-latest, macos-latest, windows-latest]
-                python-version: [3.6, 3.7, 3.8, 3.9]
+                python-version: [3.6, 3.7, 3.8, 3.9, 3.10.0-rc.2]
                 architecture: [x64, x86]
                 exclude:
                     os: [ubuntu-latest, macos-lates]
@@ -41,5 +41,5 @@ jobs:
         - name: Local build
           run: |
             python setup.py build_ext -i
-            python test.py
+            python test.py || exit 1
             git clean -xfd
