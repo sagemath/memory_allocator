@@ -22,3 +22,7 @@ On failure to allocate the memory, a proper error is raised.
 ## 0.1.1
 
 - Fixed doctests on 32bit systems.
+
+## 0.1.2
+
+- Provide wheels build by github actions.
