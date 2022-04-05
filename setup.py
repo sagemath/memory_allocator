@@ -26,11 +26,11 @@ extensions = [
 
 setup(
     name='memory_allocator',
-    version='0.1.1a0',
+    version='0.1.3a0',
     description='An extension class to allocate memory easily with cython',
     long_description=long_description,
     long_description_content_type='text/markdown',
-    url='https://github.com/kliem/memory_allocator',
+    url='https://github.com/sagemath/memory_allocator',
     author='Jeroen Demeyer, Nathann Cohen, Jonathan Kliem',
     author_email='sage-devel@googlegroups.com',
     license='GPLv3',

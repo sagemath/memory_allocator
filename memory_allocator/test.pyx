@@ -14,10 +14,10 @@ cdef class TestMemoryAllocator():
         >>> from memory_allocator.test import TestMemoryAllocator
         >>> mem = TestMemoryAllocator()
         >>> _ = mem.malloc(100)
-        >>> mem.malloc(2**63)
+        >>> mem.malloc(mem.size_t_max())
         Traceback (most recent call last):
         ...
-        MemoryError: failed to allocate 9223372036854775808 bytes
+        MemoryError: failed to allocate ... bytes
         """
         return <size_t> self.mem.malloc(size)
 
@@ -28,10 +28,10 @@ cdef class TestMemoryAllocator():
         >>> from memory_allocator.test import TestMemoryAllocator
         >>> mem = TestMemoryAllocator()
         >>> _ = mem.calloc(100, 10)
-        >>> mem.calloc(2**63, 1)
+        >>> mem.calloc(mem.size_t_max(), 1)
         Traceback (most recent call last):
         ...
-        MemoryError: failed to allocate 9223372036854775808 * 1 bytes
+        MemoryError: failed to allocate ... * 1 bytes
         """
         return <size_t> self.mem.calloc(nmemb, size)
 
@@ -42,10 +42,10 @@ cdef class TestMemoryAllocator():
         >>> from memory_allocator.test import TestMemoryAllocator
         >>> mem = TestMemoryAllocator()
         >>> _ = mem.allocarray(100, 10)
-        >>> mem.allocarray(2**63, 1)
+        >>> mem.allocarray(mem.size_t_max(), 1)
         Traceback (most recent call last):
         ...
-        MemoryError: failed to allocate 9223372036854775808 * 1 bytes
+        MemoryError: failed to allocate ... * 1 bytes
         """
         return <size_t> self.mem.allocarray(nmemb, size)
 
@@ -142,3 +142,6 @@ cdef class TestMemoryAllocator():
 
     def size(self):
         return self.mem.size
+
+    def size_t_max(self):
+        return <size_t> -1
