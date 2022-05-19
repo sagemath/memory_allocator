@@ -1,5 +1,5 @@
 # Much taken from https://github.com/Ezibenroc/PyRoaringBitMap/blob/master/.github/workflows/main.yml
-name: memory_allocator
+name: test memory_allocator
 
 on:
     pull_request:
