@@ -1,8 +1,6 @@
 name: Build wheels and tar
 
 on:
-    pull_request:
-        types: [opened, synchronize]
     push:
         tags:
             - '*'
