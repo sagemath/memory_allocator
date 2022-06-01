@@ -21,7 +21,7 @@ On failure to allocate the memory, a proper error is raised.
 
 ## 0.1.3
 
-- python 3.11 compatible
+- Python 3.11 compatible.
 
 ## 0.1.2
 
