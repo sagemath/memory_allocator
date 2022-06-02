@@ -19,10 +19,14 @@ On failure to allocate the memory, a proper error is raised.
 
 # Changelog
 
-## 0.1.1
+## 0.1.3
 
-- Fixed doctests on 32bit systems.
+- Python 3.11 compatible.
 
 ## 0.1.2
 
 - Provide wheels build by github actions.
+
+## 0.1.1
+
+- Fixed doctests on 32bit systems.

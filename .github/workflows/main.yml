@@ -1,5 +1,5 @@
 # Much taken from https://github.com/Ezibenroc/PyRoaringBitMap/blob/master/.github/workflows/main.yml
-name: memory_allocator
+name: test memory_allocator
 
 on:
     pull_request:
@@ -15,7 +15,7 @@ jobs:
             fail-fast: false
             matrix:
                 os: [ubuntu-latest, macos-latest, windows-latest]
-                python-version: ['3.6', '3.7', '3.8', '3.9', '3.10']
+                python-version: ['3.6', '3.7', '3.8', '3.9', '3.10', '3.11.0-beta.1']
                 architecture: [x64, x86]
                 exclude:
                     - os: ubuntu-latest
