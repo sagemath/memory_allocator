@@ -1,4 +1,4 @@
-name: Build wheels and tar
+name: Build wheels and sdist
 
 on:
     pull_request:
@@ -6,40 +6,75 @@ on:
     push:
         tags:
             - '*'
+    workflow_dispatch:
 
 jobs:
+
+  sdists_for_pypi:
+    name: Build sdist (and upload to PyPI on release tags)
+    runs-on: ubuntu-latest
+    env:
+      CAN_DEPLOY: ${{ secrets.SAGEMATH_PYPI_API_TOKEN != '' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v4
+      - name: make sdist
+        run: |
+          pipx run build -s
+      - uses: actions/upload-artifact@v3
+        with:
+          path: "dist/*.tar.gz"
+          name: dist
+      - uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          user: __token__
+          password: ${{ secrets.SAGEMATH_PYPI_API_TOKEN }}
+          skip_existing: true
+          verbose: true
+        if: env.CAN_DEPLOY == 'true' && github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+
   build_wheels:
-    name: Wheels on ${{ matrix.os }}
+    name: Build wheels on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        os: [ubuntu-latest, macOS-latest, macOS-14]
+
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
+
+      # Used to host cibuildwheel
+      - uses: actions/setup-python@v4
 
       - name: Build wheels
-        uses: pypa/cibuildwheel@v2.6.0
-        # to supply options, put them in 'env', like:
-        # env:
-        #     CIBW_SOME_OPTION: value
+        uses: pypa/cibuildwheel@v2.17.0
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
+          name: wheels
           path: ./wheelhouse/*.whl
 
-  build_sdist:
-      name: Build source distribution
-      runs-on: ubuntu-latest
-      steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-        name: Install Python
-        with:
-          python-version: '3.8'
+  pypi-publish:
+    # https://github.com/pypa/gh-action-pypi-publish
+    name: Upload wheels to PyPI
+    needs: build_wheels
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+    runs-on: ubuntu-latest
+    env:
+      CAN_DEPLOY: ${{ secrets.SAGEMATH_PYPI_API_TOKEN != '' }}
+    steps:
 
-      - name: Build sdist
-        run: python setup.py sdist
-
-      - uses: actions/upload-artifact@v2
+      - uses: actions/download-artifact@v3
         with:
-          path: dist/*.tar.gz
+          name: wheels
+          path: wheelhouse
+
+      - name: Publish package distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          user: __token__
+          password: ${{ secrets.SAGEMATH_PYPI_API_TOKEN }}
+          packages_dir: wheelhouse/
+          skip_existing: true
+          verbose: true
+        if: env.CAN_DEPLOY == 'true'
