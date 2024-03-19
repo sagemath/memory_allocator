@@ -19,6 +19,13 @@ On failure to allocate the memory, a proper error is raised.
 
 # Changelog
 
+## 0.1.4 (release candidate)
+
+- Modernize Python metadata, require Python >= 3.8.
+  [#9](https://github.com/sagemath/memory_allocator/pull/9) by @mkoeppe
+- Add missing `noexcept` clauses for Cython 3
+  [#8](https://github.com/sagemath/memory_allocator/pull/8) by @tornaria
+
 ## 0.1.3
 
 - Python 3.11 compatible.
