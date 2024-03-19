@@ -1,3 +1,32 @@
 [build-system]
-requires = ["setuptools", "wheel", "Cython", "Cython>=0.29.30; python_version > '3.10'"]
+requires = [
+    "setuptools>=61.2",
+    "Cython",
+    "Cython>=0.29.30; python_version > '3.10'"
+]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "memory_allocator"
+version = "0.1.3"
+description = "An extension class to allocate memory easily with cython"
+authors = [
+    {name = "Jeroen Demeyer, Nathann Cohen, Jonathan Kliem", email = "sage-devel@googlegroups.com"},
+]
+dependencies = [
+    "Cython",
+]
+requires-python = ">=3.8"
+readme = "README.md"
+license = {text = "GPLv3"}
+classifiers = [
+    "Development Status :: 6 - Mature",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Programming Language :: Cython",
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: Mathematics",
+]
+
+[project.urls]
+Homepage = "https://github.com/sagemath/memory_allocator"
