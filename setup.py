@@ -19,7 +19,7 @@ extensions = [
     Extension(
         "memory_allocator.test",
         sources=["memory_allocator/test.pyx"]),
-    ]
+]
 
 
 setup(

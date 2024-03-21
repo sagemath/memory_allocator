@@ -1,5 +1,8 @@
-# Copied from https://github.com/sagemath/cysignals/blob/master/src/cysignals/memory.pxd.
-# Note that this is no longer interruption safe, as we efficiently remove ``sig_block``/``sig_unblock``.
+# Copied from
+# https://github.com/sagemath/cysignals/blob/master/src/cysignals/memory.pxd
+
+# Note that this is no longer interruption safe,
+# as we efficiently remove ``sig_block``/``sig_unblock``.
 """
 Memory allocation functions which are interrupt-safe
 
@@ -8,7 +11,7 @@ functions. The ``check_`` variants check the return value and raise
 ``MemoryError`` in case of failure.
 """
 
-#*****************************************************************************
+# ****************************************************************************
 #       Copyright (C) 2011-2016 Jeroen Demeyer <J.Demeyer@UGent.be>
 #
 #  cysignals is free software: you can redistribute it and/or modify it
@@ -22,9 +25,9 @@ functions. The ``check_`` variants check the return value and raise
 #  GNU Lesser General Public License for more details.
 #
 #  You should have received a copy of the GNU Lesser General Public License
-#  along with cysignals.  If not, see <http://www.gnu.org/licenses/>.
+#  along with cysignals.  If not, see <https://www.gnu.org/licenses/>.
 #
-#*****************************************************************************
+# ****************************************************************************
 
 
 cimport cython

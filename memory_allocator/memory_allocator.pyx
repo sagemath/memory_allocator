@@ -51,7 +51,8 @@ cdef class MemoryAllocator:
                 self.pointers[i] = self.static_pointers[i]
         else:
             # Case 2: resize pointers
-            self.pointers = <void**>check_reallocarray(self.pointers, new_size, sizeof(void*))
+            self.pointers = <void**>check_reallocarray(self.pointers,
+                                                       new_size, sizeof(void*))
         self.size = new_size
 
     cdef void** find_pointer(self, void* ptr) except NULL:
@@ -113,7 +114,7 @@ cdef class MemoryAllocator:
         return val
 
     cdef void* reallocarray(self, void* ptr, size_t nmemb,
-                             size_t size) except? NULL:
+                            size_t size) except? NULL:
         r"""
         Re-allocates `ptr` and automatically frees it later.
         """

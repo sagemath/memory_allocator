@@ -7,7 +7,7 @@ It provides a single extension class `MemoryAllocator` with `cdef` methods
 
 - `malloc`,
 - `calloc`,
-- `alloarray`,
+- `allocarray`,
 - `realloc`,
 - `reallocarray`,
 - `aligned_malloc`,
