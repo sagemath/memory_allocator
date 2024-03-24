@@ -8,7 +8,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "memory_allocator"
-version = "0.1.4rc1"
+version = "0.1.4"
 description = "An extension class to allocate memory easily with cython"
 authors = [
     {name = "Jeroen Demeyer, Nathann Cohen, Jonathan Kliem", email = "sage-devel@googlegroups.com"},
