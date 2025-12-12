@@ -16,13 +16,12 @@ authors = [
 dependencies = [
     "Cython",
 ]
-requires-python = ">=3.8"
+requires-python = ">=3.11"
 readme = "README.md"
-license = {text = "GPLv3"}
+license = "GPL-3.0-or-later"
 classifiers = [
     "Development Status :: 6 - Mature",
     "Intended Audience :: Science/Research",
-    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
     "Programming Language :: Cython",
     "Programming Language :: Python :: 3",
     "Topic :: Scientific/Engineering :: Mathematics",
