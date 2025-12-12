@@ -21,7 +21,7 @@ jobs:
       - name: make sdist
         run: |
           pipx run build -s
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           path: "dist/*.tar.gz"
           name: dist
@@ -38,7 +38,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macOS-latest, macOS-14]
+        os: [ubuntu-latest, macOS-latest]
 
     steps:
       - uses: actions/checkout@v4
@@ -47,9 +47,9 @@ jobs:
       - uses: actions/setup-python@v4
 
       - name: Build wheels
-        uses: pypa/cibuildwheel@v2.17.0
+        uses: pypa/cibuildwheel@v3.3.0
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: wheels
           path: ./wheelhouse/*.whl
