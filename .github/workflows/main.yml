@@ -18,32 +18,20 @@ jobs:
             matrix:
                 os: [ubuntu-latest, macos-latest, windows-latest]
                 python-version: ['3.12', '3.13', '3.14']
-                architecture: [x64, x86]
-                exclude:
-                    - os: ubuntu-latest
-                      architecture: x86
-                    - os: macos-latest
-                      architecture: x86
         steps:
         - name: Set up the repository
           uses: actions/checkout@v4
           with:
               submodules: recursive
               fetch-depth: 0
-        - name: Set up Python ${{ matrix.python-version }}
+        - name: Set up Python
           uses: actions/setup-python@v5
           with:
             python-version: ${{ matrix.python-version }}
-            architecture: ${{ matrix.architecture }}
-        - name: Install dependencies
+        - name: Build
           run: |
               python -m pip install --upgrade pip
-              pip install setuptools Cython Sphinx flake8
-        - name: Freeze pip
+              python -m pip install .
+        - name: Test
           run: |
-              pip freeze
-        - name: Local build
-          run: |
-            python setup.py build_ext -i
-            python test.py || exit 1
-            git clean -xfd
+              python test.py

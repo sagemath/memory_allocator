@@ -1,20 +1,13 @@
 [build-system]
-requires = [
-    "setuptools>=61.2",
-    "Cython",
-    "Cython>=0.29.30; python_version > '3.10'"
-]
-build-backend = "setuptools.build_meta"
+requires = ["meson-python>=0.15.0", "Cython>=3.0"]
+build-backend = "mesonpy"
 
 [project]
 name = "memory_allocator"
 version = "0.1.4"
 description = "An extension class to allocate memory easily with cython"
 authors = [
-    {name = "Jeroen Demeyer, Nathann Cohen, Jonathan Kliem", email = "sage-devel@googlegroups.com"},
-]
-dependencies = [
-    "Cython",
+    { name = "Jeroen Demeyer, Nathann Cohen, Jonathan Kliem", email = "sage-devel@googlegroups.com" },
 ]
 requires-python = ">=3.11"
 readme = "README.md"

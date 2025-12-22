@@ -17,7 +17,20 @@ It provides a single extension class `MemoryAllocator` with `cdef` methods
 Memory is freed when the instance of `MemoryAllocator` is deallocated.
 On failure to allocate the memory, a proper error is raised.
 
+## Building from source
+
+This project uses [meson-python](https://mesonbuild.com/meson-python/) for
+its build backend. A typical editable install looks like:
+
+```shell
+  python -m pip install -e .
+```
+
 # Changelog
+
+## 0.1.5
+- Migrate build system to Meson.
+
 
 ## 0.1.4
 

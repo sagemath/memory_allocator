@@ -1,3 +1,0 @@
-include AUTHORS
-include setup.py cydoctest.py test.py pyproject.toml
-graft memory_allocator
