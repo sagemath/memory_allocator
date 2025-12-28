@@ -30,6 +30,7 @@ its build backend. A typical editable install looks like:
 
 ## 0.1.5
 - Migrate build system to Meson.
+- Require Python >= 3.12.
 
 
 ## 0.1.4
