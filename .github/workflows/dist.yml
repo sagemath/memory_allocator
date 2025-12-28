@@ -1,0 +1,80 @@
+name: Distributions
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  # Cancel previous runs of this workflow for the same branch
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  make_sdist:
+    name: Build sdist
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: astral-sh/setup-uv@v7
+      - name: Build sdist
+        run: uv build --sdist
+      - uses: actions/upload-artifact@v4
+        with:
+          path: "dist/*.tar.*"
+          name: release-sdist
+
+  build_wheels:
+    name: Build wheels on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+          - ubuntu-24.04-arm
+          - windows-latest
+          - windows-11-arm
+          - macos-15-intel
+          - macos-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: astral-sh/setup-uv@v7
+      - name: Build wheels
+        uses: pypa/cibuildwheel@v3.3
+      - uses: actions/upload-artifact@v5
+        with:
+          name: release-wheels-${{ matrix.os }}
+          path: wheelhouse/*.whl
+
+  pypi-publish:
+    # This needs to be a separate job because pypa/gh-action-pypi-publish cannot run on macOS
+    # https://github.com/pypa/gh-action-pypi-publish
+    name: Upload wheels to PyPI
+    needs: [build_wheels, make_sdist]
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      attestations: write
+      contents: read
+    steps:
+      - uses: actions/download-artifact@v6
+        with:
+          pattern: release-*
+          path: dist
+          merge-multiple: true
+      
+      - name: List files
+        run: ls -l -R dist
+
+      - name: Generate artifact attestations
+        uses: actions/attest-build-provenance@v3
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+        with:
+          subject-path: "dist/*"
+
+      - name: Publish package distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          verbose: true
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
