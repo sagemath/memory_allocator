@@ -44,7 +44,7 @@ jobs:
         uses: pypa/cibuildwheel@v3.3
       - uses: actions/upload-artifact@v5
         with:
-          name: release-wheels-${{ matrix.os }}
+          name: release-wheels-${{ matrix.os }}-${{ strategy.job-index }}
           path: wheelhouse/*.whl
 
   pypi-publish:
