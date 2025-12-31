@@ -69,7 +69,8 @@ jobs:
 
       - name: Generate artifact attestations
         uses: actions/attest-build-provenance@v3
-        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+        if: github.event_name == 'workflow_dispatch'
+        # if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
         with:
           subject-path: "dist/*"
 
@@ -77,4 +78,5 @@ jobs:
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           verbose: true
-        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+        if: github.event_name == 'workflow_dispatch'
+        # if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
