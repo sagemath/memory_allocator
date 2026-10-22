@@ -4,12 +4,12 @@ build-backend = "mesonpy"
 
 [project]
 name = "memory_allocator"
-version = "0.2.0"
+version = "0.2.1"
 description = "An extension class to allocate memory easily with cython"
 authors = [
     { name = "Jeroen Demeyer, Nathann Cohen, Jonathan Kliem", email = "sage-devel@googlegroups.com" },
 ]
-requires-python = ">=3.12"
+requires-python = ">=3.13"
 readme = "README.md"
 license = "GPL-3.0-or-later"
 classifiers = [
